@@ -1,0 +1,13 @@
+# General
+/node_modules/
+/dist/
+
+#DB
+dev.db
+dev.db-journal
+
+# Testing
+/test-results/
+
+# Env
+*.env*

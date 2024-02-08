@@ -1,0 +1,39 @@
+{
+  "name": "sample",
+  "version": "0.0.0",
+  "license": "MIT",
+  "scripts": {
+    "start": "bun start:node",
+    "start:runner": "bun --bun ./node_modules/nx/bin/nx.js run-many -t start --runner bun",
+    "start:node": "nx run-many -t start",
+    "build": "bun build:node",
+    "build:runner": "bun --bun ./node_modules/nx/bin/nx.js run-many -t build --runner bun",
+    "build:node": "nx run-many -t build:node",
+    "build:affected": "bun build:affected:node",
+    "build:affected:node": "nx affected -t build --head=$NX_HEAD --base=$NX_BASE",
+    "build:server": "bun build:server:node",
+    "build:server:runner": "bun --bun ./node_modules/nx/bin/nx.js build:server ui --runner bun",
+    "build:server:node": "nx build:server ui",
+    "dev": "bun dev:node",
+    "dev:runner": "bun --bun ./node_modules/nx/bin/nx.js run-many -t dev --runner bun",
+    "dev:node": "nx run-many -t dev",
+    "e2e":"bun nx run-many -t e2e --parallel=1",
+    "e2e:runner": "bun --bun ./node_modules/nx/bin/nx.js run-many -t e2e --parallel=1 --runner bun",
+    "e2e:node": "nx run-many -t e2e:node --parallel=1",
+    "prettier": "bun --bun ./node_modules/nx/bin/nx.js run-many -t prettier --runner bun",
+    "prettier:node": "nx run-many -t prettier:node",
+    "init": "bun init:node",
+    "init:runner": "bun --bun ./node_modules/nx/bin/nx.js run api-service:init --runner bun",
+    "init:node": "nx init:node api-service"
+  },
+  "private": true,
+  "dependencies": {},
+  "devDependencies": {
+    "@nx-bun/task-worker-runner": "0.0.4",
+    "@nx/js": "17.3.1",
+    "nx": "17.3.1"
+  },
+  "workspaces": [
+    "packages/*"
+  ]
+}

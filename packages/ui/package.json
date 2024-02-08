@@ -1,0 +1,59 @@
+{
+  "name": "ui",
+  "scripts": {
+    "dev": "bun --bun vike-solid dev",
+    "dev:node": "vike-solid dev",
+    "build": "bun --bun vike-solid build",
+    "build:node": "vike-solid build",
+    "build:server:node": "tsc server/* --outDir dist/server --target esnext --module esnext --skipLibCheck --moduleResolution node",
+    "build:server": "bunx tsc server/* --outDir dist/server --target esnext --module esnext --skipLibCheck --moduleResolution node",
+    "start": "NODE_ENV=production bun --bun dist/server/index.js",
+    "start:node": "NODE_ENV=production node dist/server/",
+    "preview": "bun --bun vike-solid preview",
+    "prerender": "bun tools/prerender.ts",
+    "prerender:node": "npx tsx tools/prerender.ts",
+    "server": "bun server/index.ts",
+    "server:node": "npx tsx server/",
+    "server:prod": "NODE_ENV=production bun server/index.ts",
+    "e2e": "bunx playwright test",
+    "e2e:node": "USE_NODE=true playwright test",
+    "e2e:init": "bun --bun playwright install --with-deps",
+    "e2e:init:node": "playwright install --with-deps",
+    "prettier": "bun --bun x prettier . --write",
+    "prettier:node": "prettier . --write"
+  },
+  "type": "module",
+  "dependencies": {
+    "@fastify/compress": "7.0.0",
+    "@fastify/static": "6.12.0",
+    "@urql/core": "4.2.3",
+    "subscriptions-transport-ws": "0.11.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.41.2",
+    "@types/bun": "latest",
+    "@types/node": "20.11.16",
+    "autoprefixer": "10.4.17",
+    "daisyui": "4.6.1",
+    "postcss": "8.4.33",
+    "prettier": "^3.0.3",
+    "sass": "1.70.0",
+    "solid-js": "^1.8.1",
+    "tailwindcss": "3.4.1",
+    "typescript": "5.3.3",
+    "vike": "^0.4.160",
+    "vike-solid": "0.3.1",
+    "vite": "^5.0.12",
+    "vite-plugin-solid": "^2.7.1",
+    "wonka": "6.3.4"
+  },
+  "version": "1.0.0",
+  "main": "postcss.config.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}

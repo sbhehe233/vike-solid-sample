@@ -1,0 +1,13 @@
+{
+  "affected": {
+    "defaultBase": "master"
+  },
+  "tasksRunnerOptions": {
+    "bun": {
+      "runner": "@nx-bun/task-worker-runner",
+      "options": {
+        "cacheableOperations": []
+      }
+    }
+  }
+}

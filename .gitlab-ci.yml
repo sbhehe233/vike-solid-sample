@@ -1,0 +1,128 @@
+# This file is a template, and might need editing before it works on your project.
+# This is a sample GitLab CI/CD configuration file that should run without any modifications.
+# It demonstrates a basic 3 stage CI/CD pipeline. Instead of real tests or scripts,
+# it uses echo commands to simulate the pipeline execution.
+#
+# A pipeline is composed of independent jobs that run scripts, grouped into stages.
+# Stages run in sequential order, but jobs within stages run in parallel.
+#
+# For more information, see: https://docs.gitlab.com/ee/ci/yaml/index.html#stages
+#
+# You can copy and paste this template into a new `.gitlab-ci.yml` file.
+# You should not add this template to an existing `.gitlab-ci.yml` file by using the `include:` keyword.
+#
+# To contribute improvements to CI/CD templates, please follow the Development guide at:
+# https://docs.gitlab.com/ee/development/cicd/templates.html
+# This specific template is located at:
+# https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Getting-Started.gitlab-ci.yml
+
+include:
+  - project: "iih-cc-six/infra/cicd-templates"
+    ref: main
+    file: "node-common.yml"
+
+.bun_config:
+  before_script:
+    |
+    echo "[install]" > bunfig.toml
+    echo "registry = \"${REGISTRY}\"" >> bunfig.toml
+
+image: cr.siemens.com/iih-cc-six/infra/images/bun-node-18-alpine-playwright-1.41.2
+#image: cr.siemens.com/iih-cc-six/infra/images/node-18-playwright-1.41.2
+
+install:
+  stage: .pre
+  extends:
+      - .bun_config
+  cache:
+    key:
+      files:
+      - packages/api-service/package.json
+      - packages/ui/package.json
+    paths:
+      - node_modules
+  script:
+    |
+    test -d "node_modules" || bun i
+  artifacts:
+    paths:
+      - node_modules
+
+
+build-all-node:       # This job runs in the build stage, which runs first.
+  stage: build
+  needs:
+    - job: install
+      artifacts: true
+  script:
+    |
+    npm run build:node
+  artifacts:
+    paths:
+      - packages/ui/dist
+      - packages/api-service/dist
+  rules:
+    - if: $USE_NODE
+
+build-all-bun:       # This job runs in the build stage, which runs first.
+  stage: build
+  variables:
+    USE_NODE: ""
+  needs:
+    - job: install
+      artifacts: true
+  script:
+    |
+    bun run build
+  artifacts:
+    paths:
+      - packages/ui/dist
+      - packages/api-service/dist
+  rules:
+    - if: $USE_BUN
+
+e2e-node:   # This job runs in the test stage.
+  stage: test    # It only starts when the job in the build stage completes successfully.
+  variables:
+    #PLAYWRIGHT_CHROMIUM_SCREENSHOT_PATH: visual-comparison-1-actual
+    PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH: /usr/bin/chromium-browser
+  needs:
+    - job: install
+      artifacts: true
+  script:
+    |
+    npm run init:node
+    npm run e2e:node
+  artifacts:
+    when: always
+    paths:
+      - packages/ui/playwright-report
+      - packages/ui/test-results
+      - packages/api-service/dist/test-results
+  rules:
+    - allow_failure: true
+    - if: $USE_NODE
+
+e2e-bun:   # This job runs in the test stage.
+  stage: test    # It only starts when the job in the build stage completes successfully.
+  variables:
+    USE_NODE: ""
+    #PLAYWRIGHT_CHROMIUM_SCREENSHOT_PATH: visual-comparison-1-actual.png
+    PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH: /usr/bin/chromium-browser
+  needs:
+    - job: install
+      artifacts: true
+  script:
+    |
+    bun run init
+    bun e2e
+  artifacts:
+    when: always
+    paths:
+      - packages/ui/playwright-report
+      - packages/ui/test-results
+      - packages/api-service/dist/test-results
+  rules:
+    - allow_failure: true
+    - if: $USE_BUN
+      
