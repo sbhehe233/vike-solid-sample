@@ -9,7 +9,13 @@ API service with GraphQL as query interface, Prisma as ORM and SQLite as provide
 - GraphQL powered by `urql`
 - WS capabilities
 - Swagger integration
-- E2E with `Stepci`
+- E2E with `Stepci` & `dredd`
+
+# APIs
+
+- `/`: health check
+- `/grapgql`: GraphQL endpoint
+- `/swagger`: Swagger UI
 
 # Available Commands
 

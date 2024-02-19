@@ -1,6 +1,6 @@
 # ui
 
-A frontend sample with framework agnostic [SSR](https://www.sanity.io/glossary/server-side-rendering) and modern data essentials (ORM, GraphQL etc.), powered by SolidJS and fully extensible for migration to alternative frameworks.
+A frontend sample with framework agnostic [SSR](https://www.sanity.io/glossary/server-side-rendering) (as well as [SSG/Prerender](https://qwik.dev/docs/guides/static-site-generation/)) and modern data essentials (ORM, GraphQL etc.), powered by SolidJS and fully extensible for migration to alternative frameworks.
 
 ![Screenshot](./e2e/main.spec.ts-snapshots/visual-comparison-1-chromium-darwin.png)
 

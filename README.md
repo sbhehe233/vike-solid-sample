@@ -1,9 +1,31 @@
 # awesome-monorepo-starter
 
-Minimalist monorepo sample to get started with framework agnostic [SSR](https://www.sanity.io/glossary/server-side-rendering) and modern data essentials (ORM, GraphQL etc.) in Typescript, supercharged by [Bun](https://www.makeuseof.com/what-is-bunjs-why-the-javascript-community-excited/), fully extensible for integration with frameworks and technologies of your choice.
+Minimalist monorepo sample to get started with framework agnostic [SSR](https://www.sanity.io/glossary/server-side-rendering) (as well as [SSG/Prerender](https://qwik.dev/docs/guides/static-site-generation/)) and modern data essentials (ORM, GraphQL etc.) in Typescript, supercharged by [Bun](https://www.makeuseof.com/what-is-bunjs-why-the-javascript-community-excited/), fully extensible for integration with frameworks and technologies of your choice.
 
 - `packages/ui`: A frontend sample with framework agnostic [SSR](https://www.sanity.io/glossary/server-side-rendering) and modern data essentials (ORM, GraphQL etc.), powered by SolidJS and fully extensible for migration to alternative frameworks - see more [here](./packages/ui/README.md)
 - `packages/api-service`: API service with GraphQL as query interface, Prisma as ORM and SQLite as provider of DB persistence - see more [here](./packages/api-service/README.md)
+
+# Overview
+
+```mermaid
+   flowchart LR
+    c2-->c1
+    c1-->c2-->a1
+    a1-->a2-->a3
+    subgraph API Service
+    a1["`GraphQL APIs
+    (Fastify/Mercurius)`"]
+    a2["`ORM
+    (Prisma)`"]
+    a3[(SQLite)]
+    end
+    subgraph UI
+    c1["`Frontend
+    (SolidJS etc.)`"]
+    c2["`Backend for Frontend
+    (Vike/Fastify)`"]
+    end
+```
 
 # Prerequisites
 
