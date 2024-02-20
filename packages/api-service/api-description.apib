@@ -1,0 +1,53 @@
+FORMAT: 1A
+
+# API Service
+
+API service with GraphQL as query interface, Prisma as ORM and SQLite as provider of DB persistence.
+
+## Health [/] 
+
+### Status Check [GET]
+
++ Response 200 (application/json; charset=utf-8)
+
+    + Body
+
+            { "status": "ok" }
+
+## GraphQL [/graphql{?query}]
+
+GraphQL resource.
+
+- Parameters
+    - query: `query { allUsers { name, email, id, posts { id }}}`
+
+### Run Query [GET]
+
+Runs a GraphQL query.
+
+- Response 200 (application/json; charset=utf-8)
+
+      + Schema
+
+            {
+                "type": "object",
+                "properties": {
+                    "data": {
+                        "type": "object",
+                        "properties": {
+                          "allUsers": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "id": { 
+                                  "type": "number"
+                                }
+                              }
+                            }
+                         }
+                       }
+                    }
+                }
+             }
+             

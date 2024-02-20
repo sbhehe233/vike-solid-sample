@@ -29,8 +29,8 @@ Minimalist monorepo sample to get started with framework agnostic [SSR](https://
 
 # Prerequisites
 
-- [bun](https://bun.sh/) - recommended optional, can safely fall back Node.js as well (recommended to manage with [proto](https://moonrepo.dev/blog/proto))
-- [Node.js] - v18 recommended, can ignore if you have bun installed
+- [bun](https://bun.sh/) - recommended optional (>=v1.0.27), can safely fall back Node.js as well (recommended to manage with [proto](https://moonrepo.dev/blog/proto))
+- Node.js - v18 recommended, can ignore if you have bun installed
 
 # Running
 
